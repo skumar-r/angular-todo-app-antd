@@ -2,13 +2,27 @@
   <h1>My To Do List</h1>
   <label for="addItemInput">What would you like to do today?</label>
 
-  <input
+  <nz-input-group [nzSuffix]="inputClearTpl">
+    <input
+    nz-input [(ngModel)]="newItem.value"
     #newItem
-    placeholder="add an item"
+    placeholder="What is the plan?"
     (keyup.enter)="addItem(newItem.value); newItem.value = ''"
     class="lg-text-input"
     id="addItemInput"
-  />
+    />
+  </nz-input-group>
+  <ng-template #inputClearTpl>
+    <i
+      nz-icon
+      class="ant-input-clear-icon"
+      nzTheme="fill"
+      nzType="close-circle"
+      *ngIf="newItem.value"
+      (click)="newItem.value = ''"
+    ></i>
+  </ng-template>
+
 
   <button nz-button nzType="primary" nzBlock (click)="addItem(newItem.value)">Add</button>
 
