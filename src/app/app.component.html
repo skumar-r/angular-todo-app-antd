@@ -11,62 +11,24 @@
   />
 
   <button nz-button nzType="primary" nzBlock (click)="addItem(newItem.value)">Add</button>
-  <button nz-button nz-dropdown [nzDropdownMenu]="menu1" nzBlock>
-    Actions
-    <i nz-icon nzType="down">rtrt</i>
-  </button>
-  <nz-dropdown-menu #menu1="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item>
-        <a>1st item</a>
-      </li>
-      <li nz-menu-item>
-        <a>2nd item</a>
-      </li>
-      <li nz-menu-item>
-        <a>3rd item</a>
-      </li>
-    </ul>
-  </nz-dropdown-menu>
 
-  <div class="btn-wrapper">
-    <button
-      nz-button
-      nzType="dashed"
-      nzBlock
-      class="btn btn-menu"
-      [class.active]="filter == 'all'"
-      (click)="filter = 'all'">
-      All
-    </button>
+  <form  [formGroup]="bioSection">
+    <nz-select formControlName="filter" (nzOpenChange)="getItems()">
+      <nz-option
+      *ngFor="let option of filterOptions"
+      [nzLabel]="option.label"
+      [nzValue]="option.value">
+    </nz-option>
+    </nz-select>
+  </form>
 
-    <button
-      nz-button
-      nzType="dashed"
-      nzBlock
-      class="btn btn-menu"
-      [class.active]="filter == 'active'"
-      (click)="filter = 'active'">
-      To Do
-    </button>
-
-    <button
-      nz-button
-      nzType="dashed"
-      class="btn btn-menu"
-      [class.active]="filter == 'done'"
-      (click)="filter = 'done'">
-      Done
-    </button>
-  </div>
-
-  <h2>{{items.length}} <span *ngIf="items.length === 1; else elseBlock">item</span>
+  <h2>{{filteredItems.length}} <span *ngIf="filteredItems.length === 1; else elseBlock">item</span>
     <ng-template #elseBlock>items</ng-template></h2>
-    
+
     <ul>
-      <li *ngFor="let item of items">
+      <li *ngFor="let item of filteredItems">
         <app-item (remove)="remove(item)" [item]="item"></app-item>
       </li>
     </ul>
-    
+
 </div>

@@ -1,9 +1,19 @@
-import { NgModule } from '@angular/core';
+import { NgZorroAntdModule } from './ng-zorro-antd.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule,  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { AppComponent } from './app.component';
 import { ItemComponent } from './item/item.component';
+import { IconDefinition } from '@ant-design/icons-angular';
+import * as AllIcons from '@ant-design/icons-angular/icons';
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
 
 @NgModule({
   declarations: [
@@ -12,10 +22,13 @@ import { ItemComponent } from './item/item.component';
   ],
   imports: [
     BrowserModule,
-    NzButtonModule,
-    NzDropDownModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgZorroAntdModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ { provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICONS, useValue: icons } ],
+  bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
