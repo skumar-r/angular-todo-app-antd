@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
   filteredItems: any = [];
   filterOptions = [
     { value: 'all', label: 'All' },
-    { value: 'active', label: 'TODO' },
-    { value: 'done', label: 'Done' },
+    { value: 'active', label: 'Pending' },
+    { value: 'done', label: 'Completed' },
   ];
 
   bioSection = new FormGroup({

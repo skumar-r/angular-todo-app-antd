@@ -25,18 +25,29 @@
 
 
   <button nz-button nzType="primary" nzBlock (click)="addItem(newItem.value)">Add</button>
+  
+  
+  <nz-layout>
+    <nz-sider style="background: #fff;">
+      <button nz-button nzType="text">
+        <i nz-icon nzType="filter"></i>Filter
+      </button>
+    </nz-sider>
+    <nz-content style="background: #fff;">
+      <form  [formGroup]="bioSection">   
+        <nz-select formControlName="filter" (nzOpenChange)="getItems()">
+          <nz-option
+          *ngFor="let option of filterOptions"
+          [nzLabel]="option.label"
+          [nzValue]="option.value">
+        </nz-option>
+        </nz-select>
+      </form>
+    </nz-content>
+  </nz-layout>
+ 
 
-  <form  [formGroup]="bioSection">
-    <nz-select formControlName="filter" (nzOpenChange)="getItems()">
-      <nz-option
-      *ngFor="let option of filterOptions"
-      [nzLabel]="option.label"
-      [nzValue]="option.value">
-    </nz-option>
-    </nz-select>
-  </form>
-
-  <h2>{{filteredItems.length}} <span *ngIf="filteredItems.length === 1; else elseBlock">item</span>
+  <h2>Total: {{filteredItems.length}} <span *ngIf="filteredItems.length === 1; else elseBlock">item</span>
     <ng-template #elseBlock>items</ng-template></h2>
 
     <ul>
