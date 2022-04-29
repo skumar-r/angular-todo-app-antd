@@ -1,59 +1,72 @@
 <div class="main">
-  <h1>My To Do List</h1>
-  <label for="addItemInput">What would you like to do today?</label>
-
-  <nz-input-group [nzSuffix]="inputClearTpl">
-    <input
-    nz-input [(ngModel)]="newItem.value"
-    #newItem
-    placeholder="What is the plan?"
-    (keyup.enter)="addItem(newItem.value); newItem.value = ''"
-    class="lg-text-input"
-    id="addItemInput"
-    />
-  </nz-input-group>
-  <ng-template #inputClearTpl>
-    <i
-      nz-icon
-      class="ant-input-clear-icon"
-      nzTheme="fill"
-      nzType="close-circle"
-      *ngIf="newItem.value"
-      (click)="newItem.value = ''"
-    ></i>
-  </ng-template>
-
-
-  <button nz-button nzType="primary" nzBlock (click)="addItem(newItem.value)">Add</button>
+  <nz-tabset nzTabPosition="top">
+    <nz-tab nzTitle="Welcome Tab">
+      Welcome ! Please navigate using Tab options available for evakuaring the application
+    </nz-tab>
+    <nz-tab nzTitle="Todo App">
+     <div>
+      <h1>My To Do List</h1>
+      <label for="addItemInput">What would you like to do today?</label>
+      
+      <nz-input-group [nzSuffix]="inputClearTpl">
+        <input
+        nz-input [(ngModel)]="newItem.value"
+        #newItem
+        placeholder="What is the plan?"
+        (keyup.enter)="addItem(newItem.value); newItem.value = ''"
+        class="lg-text-input"
+        id="addItemInput"
+        />
+      </nz-input-group>
+      <ng-template #inputClearTpl>
+        <i
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          *ngIf="newItem.value"
+          (click)="newItem.value = ''"
+        ></i>
+      </ng-template>
+    
+    
+      <button nz-button nzType="primary" nzBlock (click)="addItem(newItem.value)">Add</button>
+      
+      
+      <nz-layout>        
+        <nz-content style="background: #fff;">
+          <i nz-icon nzType="filter"></i>Filter
+          <form  [formGroup]="bioSection">   
+            <nz-select formControlName="filter" (nzOpenChange)="getItems()">
+              <nz-option
+                *ngFor="let option of filterOptions"
+                [nzLabel]="option.label"
+                [nzValue]="option.value">
+            </nz-option>
+            </nz-select>
+          </form>
+        </nz-content>
+      </nz-layout>
+     
+    
+      <h2>Total: {{filteredItems.length}} <span *ngIf="filteredItems.length === 1; else elseBlock">item</span>
+        <ng-template #elseBlock>items</ng-template></h2>
+    
+        <ul>
+          <li *ngFor="let item of filteredItems">
+            <app-item (remove)="remove(item)" [item]="item"></app-item>
+          </li>
+        </ul>
+     </div>
+    </nz-tab>
+    <nz-tab nzTitle="WS Proxy Sample API">
+      <nz-card style="width:100%;" [nzBordered]="false" nzTitle="Test WSproxy API - " >       
+        <p> <textarea rows="4" nz-input [ngModel]="apiResponse | json" ></textarea></p>
+        <button nz-button nzType="primary" nzBlock (click)="callAPI()">Invoke API</button>
+      </nz-card>
+      
+     </nz-tab>
+  </nz-tabset>
   
-  
-  <nz-layout>
-    <nz-sider style="background: #fff;">
-      <button nz-button nzType="text">
-        <i nz-icon nzType="filter"></i>Filter
-      </button>
-    </nz-sider>
-    <nz-content style="background: #fff;">
-      <form  [formGroup]="bioSection">   
-        <nz-select formControlName="filter" (nzOpenChange)="getItems()">
-          <nz-option
-          *ngFor="let option of filterOptions"
-          [nzLabel]="option.label"
-          [nzValue]="option.value">
-        </nz-option>
-        </nz-select>
-      </form>
-    </nz-content>
-  </nz-layout>
- 
-
-  <h2>Total: {{filteredItems.length}} <span *ngIf="filteredItems.length === 1; else elseBlock">item</span>
-    <ng-template #elseBlock>items</ng-template></h2>
-
-    <ul>
-      <li *ngFor="let item of filteredItems">
-        <app-item (remove)="remove(item)" [item]="item"></app-item>
-      </li>
-    </ul>
 
 </div>

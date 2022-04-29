@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import axios from 'axios';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { NzTabPosition } from 'ng-zorro-antd/tabs';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +22,9 @@ export class AppComponent implements OnInit {
   bioSection = new FormGroup({
     filter: new FormControl('all'),
   });
+
+  position: NzTabPosition = 'bottom';
+  apiResponse = "";
 
   allItems = [
     { description: 'eat', done: true },
@@ -65,5 +70,34 @@ export class AppComponent implements OnInit {
 
   remove(item: any) {
     this.filteredItems.splice(this.filteredItems.indexOf(item), 1);
+  }
+
+//wsproxy_api_url = 'https://webservices.mynet-chef.com/vendor/v1/getAllVendors';
+wsproxy_api_url = 'http://samplebootstrap-env.eba-fbm8bt3y.us-east-1.elasticbeanstalk.com/wsproxy2';
+
+headerParams = {
+  'password': 'margqa',
+  'userid': 'margqa',
+  'sitename': 'margqa-2-5',
+  'connexLoginToken': 'test123',
+  'Accept': 'application/json',
+  'authenticationtoken': 'lc*tno@@12$$!((&&gw#apr632hckajsh54@duysuyasty15'
+
+};
+config = {
+  headers: this.headerParams,
+  params: {
+      auditLog: false
+  },
+};
+
+ callAPI(){
+    axios.get(this.wsproxy_api_url, this.config)
+        .then(res => {  
+          this.apiResponse = res.data; 
+        })
+        .catch( reason => {           
+          this.apiResponse = reason.data;
+        });
   }
 }
