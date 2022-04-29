@@ -1,28 +1,41 @@
 # MdnAngularTodo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0 and project
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Initial Setup
 
-## Code scaffolding
+Run `npm install` to install all the dependencies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Check whether Angular CLI is installed properly by running `ng --version`
+
+Make sure Android and iOS specific SDK is installed for corresponding application code generation
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+After completion of build, Copy the contents from  `dist/angular-todo-app-antd` to `dist/`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Check for CapacitorJS CLI
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `npx cap --version` it should return proper version of CapacitorJS installed
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# mdn-angular-todo
+## Generate/Update Native Code with CapacitorJS
+
+Run `npx cap sync`
+
+## Run the code in Android / IOS emulator
+
+Run `npx cap run`
+
+## Generation of Native ackage like apk for android
+No Build support from CapacitorJS
+Follow the Android/iOS specific Native Build steps
+For example, for Android open `android` folder in Android Studio and generate the apk by using gradle as in native develeopment.
+
+## In case of issues while running `npx cap sync`
+
+Please do remove `android` or iOS specific folder from the application folder and rerun the cammand `npx cap sync`
