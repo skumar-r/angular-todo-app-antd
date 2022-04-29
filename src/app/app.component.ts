@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import axios from 'axios';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
 import { NzTabPosition } from 'ng-zorro-antd/tabs';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 @Component({
   selector: 'app-root',
@@ -92,6 +93,20 @@ config = {
 };
 
  callAPI(){
+  LocalNotifications.schedule({
+    notifications: [
+      {
+        title: "On sale",
+        body: "Widgets are 10% off. Act fast!",
+        id: 1,
+        schedule: { at: new Date(Date.now()) },
+        sound: undefined,
+        attachments: undefined,
+        actionTypeId: "",
+        extra: null
+      }
+    ]
+  });
     axios.get(this.wsproxy_api_url, this.config)
         .then(res => {  
           this.apiResponse = res.data; 
@@ -99,5 +114,10 @@ config = {
         .catch( reason => {           
           this.apiResponse = reason.data;
         });
+        
   }
+
+
+
+
 }

@@ -15,8 +15,6 @@ Make sure Android and iOS specific SDK is installed for corresponding applicatio
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-After completion of build, Copy the contents from  `dist/angular-todo-app-antd` to `dist/`
-
 
 ## Check for CapacitorJS CLI
 
