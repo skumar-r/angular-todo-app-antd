@@ -93,31 +93,49 @@ config = {
 };
 
  callAPI(){
-  LocalNotifications.schedule({
-    notifications: [
-      {
-        title: "On sale",
-        body: "Widgets are 10% off. Act fast!",
-        id: 1,
-        schedule: { at: new Date(Date.now()) },
-        sound: undefined,
-        attachments: undefined,
-        actionTypeId: "",
-        extra: null
-      }
-    ]
+  LocalNotifications.checkPermissions().then( available => {
+    LocalNotifications.requestPermissions().then( res => {
+      
+    });
+    
   });
+ 
     axios.get(this.wsproxy_api_url, this.config)
         .then(res => {  
           this.apiResponse = res.data; 
+          LocalNotifications.schedule({
+            notifications: [
+              {
+                title: "API Invoked",
+                body: res.data,
+                id: 1,
+                //schedule: { at: new Date(Date.now()) },
+                sound: undefined,
+                attachments: undefined,
+                actionTypeId: "",
+                extra: null
+              }
+            ]
+          });
         })
         .catch( reason => {           
           this.apiResponse = reason.data;
+          LocalNotifications.schedule({
+            notifications: [
+              {
+                title: "API Invoked",
+                body: reason,
+                id: 1,
+                //schedule: { at: new Date(Date.now()) },
+                sound: undefined,
+                attachments: undefined,
+                actionTypeId: "",
+                extra: null
+              }
+            ]
+          });
         });
         
   }
-
-
-
 
 }
