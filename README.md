@@ -21,6 +21,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Run `npx cap --version` it should return proper version of CapacitorJS installed
 
 
+## Adding Platform
+Run `npx cap add android` to work with android
+Run `npx cap add ios` to work with ios
+
 ## Generate/Update Native Code with CapacitorJS
 
 Run `npx cap sync`
